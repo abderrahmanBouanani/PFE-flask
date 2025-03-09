@@ -1,0 +1,13 @@
+.boton {
+  width: 80px;
+  background-color: rgb(74, 137, 74);
+  color: white;
+  margin-top: 5px;
+  border-radius: 10px;
+  border-color: rgb(74, 137, 74);
+}
+.boton:hover {
+  background-color: rgb(61, 101, 61);
+  color: white;
+  border-color: rgb(74, 137, 74);
+}
