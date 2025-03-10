@@ -1,56 +1,7 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="shortcut icon" href="../favicon.png">
-
-  <meta name="description" content="" />
-  <meta name="keywords" content="bootstrap, bootstrap4" />
-
-  <!-- Bootstrap CSS -->
-  <link href="../css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="../css/tiny-slider.css" rel="stylesheet">
-  <link href="../css/style.css" rel="stylesheet">
-  <title>ShopAll - Contactez-nous</title>
-</head>
-
-<body>
-
-  <!-- Début de l'en-tête/Navigation -->
-  <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Barre de navigation ShopAll">
-
-    <div class="container">
-      <a class="navbar-brand" href="index.html">ShopAll<span>.</span></a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsShopAll" aria-controls="navbarsShopAll" aria-expanded="false" aria-label="Basculer la navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsShopAll">
-        <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('client_home') }}">Accueil</a>
-          </li>
-          <li><a class="nav-link" href="{{ url_for('client_boutique') }}">Boutique</a></li>
-          <li><a class="nav-link" href="{{ url_for('client_about') }}">À propos</a></li>
-          <li><a class="nav-link" href="{{ url_for('client_service') }}">Services</a></li>
-          <li><a class="nav-link active" href="{{ url_for('client_contact') }}">Contact</a></li>
-        </ul>
-
-        <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-          <li><a class="nav-link" href="profilClient.html"><img src="../images/user.svg"></a></li>
-          <li><a class="nav-link" href="cart.html"><img src="../images/cart.svg"></a></li>
-          <li><a class="nav-link" href="login.html"><img src="../images/logout2.png" style="height: 30px; width: 30px; margin-left: 15px;"></a></li>
-        </ul>
-      </div>
-    </div>
-      
-  </nav>
-  <!-- Fin de l'en-tête/Navigation -->
-
-  <!-- Début de la section Héros -->
+{% extends "base.html"%}
+{% block title %} ShopAll - Contact{% endblock %}
+{% block content %}
+<!-- Début de la section Héros -->
 <div class="hero">
 	<div class="container">
 	  <div class="row justify-content-between">
@@ -58,7 +9,7 @@
 		  <div class="intro-excerpt">
 			<h1>Contact</h1>
 			<p class="mb-4">Nous sommes là pour vous aider ! N'hésitez pas à nous contacter pour toute question ou demande concernant nos produits et services.</p>
-			<p><a href="" class="btn btn-secondary me-2">Acheter maintenant</a><a href="#" class="btn btn-white-outline">Explorer</a></p>
+			<p><a href="{{url_for('client_boutique')}}" class="btn btn-secondary me-2">Acheter maintenant</a><a href="#" class="btn btn-white-outline">Explorer</a></p>
 		  </div>
 		</div>
 		<div class="col-lg-7">
@@ -70,9 +21,6 @@
 	</div>
   </div>
   <!-- Fin de la section Héros -->
-  
-  
-
   
   <!-- Début du formulaire de contact -->
   <div class="untree_co-section">
@@ -168,92 +116,4 @@
 
 <!-- Fin du formulaire de contact -->
 
-  
-
-  <!-- Start Footer Section -->
-<footer class="footer-section">
-  <div class="container relative">
-    <div class="row g-5 mb-5">
-      <div class="col-lg-4">
-        <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">ShopAll<span>.</span></a></div>
-        <p class="mb-4">ShopAll est votre destination en ligne pour tous vos besoins d'achat au Maroc. Nous offrons une large gamme de produits de qualité, un service client exceptionnel et une expérience d'achat sans tracas.</p>
-
-        <ul class="list-unstyled custom-social">
-          <li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
-          <li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
-          <li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
-          <li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
-        </ul>
-      </div>
-
-      <div class="col-lg-8">
-        <div class="row links-wrap">
-          <div class="col-6 col-sm-6 col-md-3">
-            <ul class="list-unstyled">
-              <li><a href="#">À propos de nous</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Nous contacter</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-sm-6 col-md-3">
-            <ul class="list-unstyled">
-              <li><a href="#">Support</a></li>
-              <li><a href="#">Base de connaissances</a></li>
-              <li><a href="#">Chat en direct</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-sm-6 col-md-3">
-            <ul class="list-unstyled">
-              <li><a href="#">Emplois</a></li>
-              <li><a href="#">Notre équipe</a></li>
-              <li><a href="#">Leadership</a></li>
-              <li><a href="#">Politique de confidentialité</a></li>
-            </ul>
-          </div>
-
-          <div class="col-6 col-sm-6 col-md-3">
-            <ul class="list-unstyled">
-              <li><a href="#">Électronique</a></li>
-              <li><a href="#">Mode</a></li>
-              <li><a href="#">Maison & Jardin</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="border-top copyright">
-      <div class="row pt-4">
-        <div class="col-lg-6">
-          <p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. Tous droits réservés. &mdash; Conçu avec amour par ShopAll.
-          </p>
-        </div>
-
-        <div class="col-lg-6 text-center text-lg-end">
-          <ul class="list-unstyled d-inline-flex ms-auto">
-            <li class="me-4"><a href="#">Conditions générales</a></li>
-            <li><a href="#">Politique de confidentialité</a></li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</footer>
-<!-- End Footer Section -->	
-
-
-		<script src="../js/bootstrap.bundle.min.js"></script>
-		<script src="../js/tiny-slider.js"></script>
-		<script src="../js/custom.js"></script>
-	</body>
-  
-  <script src="../js/contact.js"></script>
-
-
-</html>
+{% endblock %}

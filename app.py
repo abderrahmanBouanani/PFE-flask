@@ -1,6 +1,14 @@
 from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
+
+@app.route('/' , endpoint='login')
+def login():
+    return render_template('auth/login.html')
+
+@app.route('/signup' , endpoint='signup')
+def signup():
+    return render_template('auth/signup.html')
 
 @app.route('/client_home')
 def client_home():
@@ -24,7 +32,11 @@ def client_contact():
 
 @app.route('/client_profil')
 def client_profil():
-    return render_template('client/profilClient')
+    return render_template('client/profilClient.html')
+
+@app.route('/client_cart')
+def client_cart():
+    return render_template('client/cart.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
