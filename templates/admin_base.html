@@ -30,28 +30,28 @@
           Tableau de Bord
         </a>
         <a 
-          href="{{ url_for('admin_users') }}" 
-          class="nav-link {% if request.endpoint == 'admin_users' %}active{% endif %} d-flex align-items-center"
+          href="{{ url_for('admin_utilisateur') }}" 
+          class="nav-link {% if request.endpoint == 'admin_utilisateur' %}active{% endif %} d-flex align-items-center"
         >
           <i class="bi bi-person-lines-fill me-2"></i>
           Utilisateur
         </a>
         <a 
-          href="{{ url_for('admin_products') }}" 
-          class="nav-link {% if request.endpoint == 'admin_products' %}active{% endif %} d-flex align-items-center"
+          href="{{ url_for('admin_produit') }}" 
+          class="nav-link {% if request.endpoint == 'admin_produit' %}active{% endif %} d-flex align-items-center"
         >
           <i class="bi bi-box-seam me-2"></i>
           Produits
         </a>
         <a 
-          href="{{ url_for('admin_orders') }}" 
-          class="nav-link {% if request.endpoint == 'admin_orders' %}active{% endif %} d-flex align-items-center"
+          href="{{ url_for('admin_commande') }}" 
+          class="nav-link {% if request.endpoint == 'admin_commande' %}active{% endif %} d-flex align-items-center"
         >
           <i class="bi bi-cart me-2"></i>
           Commandes
         </a>
         <a 
-          href="{{ url_for('admin_profile') }}" 
+          href="{{ url_for('admin_about') }}" 
           class="nav-link {% if request.endpoint == 'admin_profile' %}active{% endif %} d-flex align-items-center"
         >
           <i class="bi bi-person me-2"></i>

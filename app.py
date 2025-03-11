@@ -38,5 +38,27 @@ def client_profil():
 def client_cart():
     return render_template('client/cart.html')
 
+#Partie Admin
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    return render_template('admin/dashboard.html')
+
+@app.route('/admin_about')
+def admin_about():
+    return render_template('admin/about.html')
+
+@app.route('/admin_commande')
+def admin_commande():
+    return render_template('admin/commandes.html')
+
+@app.route('/admin_produit')
+def admin_produit():
+    return render_template('admin/produits.html')
+
+@app.route('/admin_utilisateur')
+def admin_utilisateur():
+    return render_template('admin/Utilisateur.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)

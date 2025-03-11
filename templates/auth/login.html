@@ -103,6 +103,7 @@
             .value.trim();
 
           // Check for admin credentials first
+          const adpage = "{{url_for('admin_dashboard')}}";
           if (
             emailInput === "admin@gmail.com" &&
             passwordInput === "admin123"
@@ -112,7 +113,7 @@
               type_utilisateur: "administrateur",
             };
             localStorage.setItem("connectedUser", JSON.stringify(adminUser));
-            window.location.href = "../admin-interface/dashboard.html";
+            window.location.href = adpage;
             return;
           }
 
