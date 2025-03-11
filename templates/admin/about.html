@@ -1,0 +1,110 @@
+{% extends "admin_base.html" %}
+
+{% block title %}ShopAll - Profil{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="user-info-card">
+    <h2 class="text-center mb-4">Informations de votre compte</h2>
+    <div id="userInfo" class="row">
+      <!-- Les informations de l'utilisateur seront affichées ici -->
+    </div>
+    <div class="text-center mt-4">
+      <button id="editProfileBtn" class="btn btn-edit">
+        Modifier le profil
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour modifier le profil -->
+<div
+  class="modal fade"
+  id="editProfileModal"
+  tabindex="-1"
+  aria-labelledby="editProfileModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileModalLabel">
+          Modifier le profil
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="editProfileForm">
+          <div class="mb-3">
+            <label for="editNom" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="editNom" required />
+          </div>
+          <div class="mb-3">
+            <label for="editPrenom" class="form-label">Prénom</label>
+            <input
+              type="text"
+              class="form-control"
+              id="editPrenom"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="editEmail" class="form-label">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="editEmail"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="editTelephone" class="form-label">Téléphone</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="editTelephone"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="editMotDePasse" class="form-label"
+              >Nouveau mot de passe (laisser vide si inchangé)</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="editMotDePasse"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Annuler
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="saveProfileChanges"
+        >
+          Enregistrer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin_js/about.js') }}"></script>
+{% endblock %}
+

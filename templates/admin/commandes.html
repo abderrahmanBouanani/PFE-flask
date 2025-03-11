@@ -1,0 +1,88 @@
+{% extends "admin_base.html" %}
+
+{% block title %}ShopAll - Commandes{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Liste des Commandes</h1>
+
+<div class="search-sort-container">
+  <div class="row g-3">
+    <div class="col-md-6">
+      <input
+        type="text"
+        class="form-control"
+        id="searchInput"
+        placeholder="Rechercher par ID, nom ou date (jj/mm/aaaa)"
+      />
+    </div>
+    <div class="col-md-3">
+      <select class="form-select" id="sortSelect">
+        <option value="date-desc">Date (plus récent)</option>
+        <option value="date-asc">Date (plus ancien)</option>
+        <option value="total-desc">Total (décroissant)</option>
+        <option value="total-asc">Total (croissant)</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-outline-primary w-100" id="searchButton">
+        Rechercher
+      </button>
+    </div>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID Commande</th>
+      <th>Client</th>
+      <th>Produits</th>
+      <th>Date</th>
+      <th>Total</th>
+      <th>Statut</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody id="ordersList">
+    <!-- Les commandes seront ajoutées ici dynamiquement -->
+  </tbody>
+</table>
+
+<!-- Modal pour afficher les produits d'une commande -->
+<div class="modal fade" id="productsModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Produits de la commande</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="modalProductsList">
+              <!-- Les produits seront ajoutés ici dynamiquement -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin_js/commandes.js') }}"></script>
+{% endblock %}
+

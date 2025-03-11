@@ -1,0 +1,37 @@
+{% extends "admin_base.html" %}
+
+{% block title %}ShopAll - Utilisateurs{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4" id="pageTitle">Liste des Utilisateurs</h1>
+<div class="card">
+  <div
+    class="card-header d-flex justify-content-between align-items-center"
+  >
+    <h5 class="mb-0" id="cardTitle">Utilisateurs</h5>
+    <span id="clientCount" class="badge bg-primary"></span>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody id="clientTable">
+          <!-- Users will be populated here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin_js/Utilisateur.js') }}"></script>
+{% endblock %}
+

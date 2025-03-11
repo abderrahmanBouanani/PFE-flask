@@ -1,0 +1,51 @@
+{% extends "admin_base.html" %}
+
+{% block title %}ShopAll - Produits{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Liste des Produits</h1>
+
+<div class="search-sort-container">
+  <div class="row g-3">
+    <div class="col-md-4">
+      <input
+        type="text"
+        class="form-control"
+        id="searchInput"
+        placeholder="Rechercher un produit"
+      />
+    </div>
+    <div class="col-md-4">
+      <select class="form-select" id="categoryFilter">
+        <option value="">Toutes les catégories</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <select class="form-select" id="sortSelect">
+        <option value="name">Trier par nom</option>
+        <option value="price-asc">Prix croissant</option>
+        <option value="price-desc">Prix décroissant</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Nom</th>
+      <th>Catégorie</th>
+      <th>Prix</th>
+    </tr>
+  </thead>
+  <tbody id="productsList">
+    <!-- Les produits seront ajoutés ici dynamiquement -->
+  </tbody>
+</table>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin_js/produits.js') }}"></script>
+{% endblock %}
+
