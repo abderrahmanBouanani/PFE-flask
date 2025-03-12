@@ -19,55 +19,95 @@
     />
     <link href="../css/tiny-slider.css" rel="stylesheet" />
     <link href="../css/style.css" rel="stylesheet" />
-    <title>ShopAll &mdash; Paiement</title>
+    <head>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
+      <link rel="shortcut icon" href="{{url_for('static' , filename='images/favicon.png')}}" />
+  
+      <meta name="description" content="" />
+      <meta name="keywords" content="bootstrap, bootstrap4" />
+  
+      <!-- Bootstrap CSS -->
+      <link href="{{url_for('static' , filename ='css/bootstrap.min.css')}}" rel="stylesheet" />
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        rel="stylesheet"
+      />
+      <link href="{{url_for('static' , filename = 'css/tiny-slider.css')}}" rel="stylesheet" />
+      <link href="{{url_for('static' ,filename = 'css/style.css')}}" rel="stylesheet" />
+      <link rel="stylesheet" href="shop.css" />
+      <script src="shop.js"></script>
+      <link rel="stylesheet" href="{{url_for('static' , filename = 'css/profileclient.css')}}">
+      <title>ShopAll &mdash; Paiement</title>
   </head>
+    
+  
 
   <body>
-    <!-- Début de l'en-tête/Navigation -->
+    <!-- Start Header/Navigation -->
     <nav
-      class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark"
-      arial-label="Barre de navigation ShopAll"
-    >
-      <div class="container">
-        <a class="navbar-brand" href="index.html">ShopAll<span>.</span></a>
+    class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark"
+    arial-label="Furni navigation bar"
+  >
+    <div class="container">
+      <a class="navbar-brand" href="index.html">ShopAll<span>.</span></a>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarsShopAll"
-          aria-controls="navbarsShopAll"
-          aria-expanded="false"
-          aria-label="Basculer la navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarsFurni"
+        aria-controls="navbarsFurni"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarsShopAll">
-          <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Accueil</a>
-            </li>
-            <li><a class="nav-link" href="shop.html">Boutique</a></li>
-            <li><a class="nav-link" href="about.html">À propos</a></li>
-            <li><a class="nav-link" href="services.html">Services</a></li>
-            <li><a class="nav-link" href="contact.html">Contact</a></li>
-          </ul>
-
-          <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-            <li>
-              <a class="nav-link" href="#"><img src="../images/user.svg" /></a>
-            </li>
-            <li>
-              <a class="nav-link" href="cart.html"
-                ><img src="../images/cart.svg"
-              /></a>
-            </li>
-          </ul>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarsFurni">
+       <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+           <li class="nav-item {% if request.path == url_for('client_home') %}active{% endif %}">
+               <a class="nav-link" href="{{ url_for('client_home') }}">Accueil</a>
+           </li>
+           <li class="nav-item {% if request.path == url_for('client_boutique') %}active{% endif %}">
+               <a class="nav-link" href="{{ url_for('client_boutique') }}">Boutique</a>
+           </li>
+           <li class="nav-item {% if request.path == url_for('client_about') %}active{% endif %}">
+               <a class="nav-link" href="{{ url_for('client_about') }}">À propos</a>
+           </li>
+           <li class="nav-item {% if request.path == url_for('client_service') %}active{% endif %}">
+               <a class="nav-link" href="{{ url_for('client_service') }}">Services</a>
+           </li>
+           <li class="nav-item {% if request.path == url_for('client_contact') %}active{% endif %}">
+               <a class="nav-link" href="{{ url_for('client_contact') }}">Contact</a>
+           </li>
+       </ul>
+        <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+          <li>
+            <a class="nav-link" href="{{ url_for('client_profil') }}"
+              ><img src="{{url_for('static' , filename ='images/user.svg')}}"
+            /></a>
+          </li>
+          <li>
+            <a class="nav-link" href="{{url_for('client_cart')}}"
+              ><img src="{{url_for('static' , filename='images/cart.svg')}}"
+            /></a>
+          </li>
+          <li>
+            <a class="nav-link" href="{{url_for('login')}}"
+              ><img
+                src="{{url_for('static' , filename ='images/logout2.png')}}"
+                style="height: 30px; width: 30px; margin-left: 15px"
+            /></a>
+          </li>
+        </ul>
       </div>
-    </nav>
-    <!-- Fin de l'en-tête/Navigation -->
+    </div>
+  </nav>
+  <!-- End Header/Navigation -->
 
     <!-- Début de la section Héros -->
     <div class="hero">
@@ -281,30 +321,6 @@
                     </div>
                   </div>
 
-                  <div class="border p-3 mb-3">
-                    <h3 class="h6 mb-0">
-                      <a
-                        class="d-block"
-                        data-bs-toggle="collapse"
-                        href="#collapsecheque"
-                        role="button"
-                        aria-expanded="false"
-                        aria-controls="collapsecheque"
-                        >Paiement par chèque</a
-                      >
-                    </h3>
-
-                    <div class="collapse" id="collapsecheque">
-                      <div class="py-2">
-                        <p class="mb-0">
-                          Veuillez envoyer votre chèque à Store Name, Store
-                          Street, Store Town, Store State / County, Store
-                          Postcode.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
                   <div class="border p-3 mb-5">
                     <h3 class="h6 mb-0">
                       <a
@@ -345,36 +361,38 @@
       </div>
     </div>
 
-    <!-- Début de la section Pied de page -->
-    <footer class="footer-section">
+     <!-- Start Footer Section -->
+     <footer class="footer-section">
       <div class="container relative">
         <div class="sofa-img">
-          <img src="../images/sofa.png" alt="Image" class="img-fluid" />
+          <img src="{{url_for('static' , filename='images/sofa.png')}}" alt="Image" class="img-fluid" />
         </div>
+
         <div class="row">
           <div class="col-lg-8">
             <div class="subscription-form">
               <h3 class="d-flex align-items-center">
                 <span class="me-1"
                   ><img
-                    src="../images/envelope-outline.svg"
+                    src="{{url_for('static' , filename = 'images/envelope-outline.svg')}}"
                     alt="Image"
                     class="img-fluid" /></span
-                ><span>Abonnez-vous à notre newsletter</span>
+                ><span>Subscribe to Newsletter</span>
               </h3>
+
               <form action="#" class="row g-3">
                 <div class="col-auto">
                   <input
                     type="text"
                     class="form-control"
-                    placeholder="Entrez votre nom"
+                    placeholder="Enter your name"
                   />
                 </div>
                 <div class="col-auto">
                   <input
                     type="email"
                     class="form-control"
-                    placeholder="Entrez votre email"
+                    placeholder="Enter your email"
                   />
                 </div>
                 <div class="col-auto">
@@ -386,17 +404,19 @@
             </div>
           </div>
         </div>
+
         <div class="row g-5 mb-5">
           <div class="col-lg-4">
             <div class="mb-4 footer-logo-wrap">
-              <a href="#" class="footer-logo">ShopAll<span>.</span></a>
+              <a href="#" class="footer-logo">Furni<span>.</span></a>
             </div>
             <p class="mb-4">
-              Chez ShopAll, nous sommes passionnés par l'offre d'une large gamme
-              de produits de qualité pour tous vos besoins. Notre engagement
-              envers l'excellence et la satisfaction du client fait de nous
-              votre choix idéal pour le shopping en ligne.
+              La facilitation commence par un pur blocage du travail. Nous vous
+              offrons une alternative à cette situation. Ensemble, nous
+              trouverons une solution pour améliorer ce processus. Le confort
+              d'un Client est essentiel
             </p>
+
             <ul class="list-unstyled custom-social">
               <li>
                 <a href="#"><span class="fa fa-brands fa-facebook-f"></span></a>
@@ -412,41 +432,46 @@
               </li>
             </ul>
           </div>
+
           <div class="col-lg-8">
             <div class="row links-wrap">
               <div class="col-6 col-sm-6 col-md-3">
                 <ul class="list-unstyled">
-                  <li><a href="#">À propos de nous</a></li>
+                  <li><a href="#">About us</a></li>
                   <li><a href="#">Services</a></li>
                   <li><a href="#">Blog</a></li>
-                  <li><a href="#">Nous contacter</a></li>
+                  <li><a href="#">Contact us</a></li>
                 </ul>
               </div>
+
               <div class="col-6 col-sm-6 col-md-3">
                 <ul class="list-unstyled">
                   <li><a href="#">Support</a></li>
-                  <li><a href="#">Base de connaissances</a></li>
-                  <li><a href="#">Chat en direct</a></li>
+                  <li><a href="#">Knowledge base</a></li>
+                  <li><a href="#">Live chat</a></li>
                 </ul>
               </div>
+
               <div class="col-6 col-sm-6 col-md-3">
                 <ul class="list-unstyled">
                   <li><a href="#">Jobs</a></li>
-                  <li><a href="#">Notre équipe</a></li>
+                  <li><a href="#">Our team</a></li>
                   <li><a href="#">Leadership</a></li>
-                  <li><a href="#">Politique de confidentialité</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
                 </ul>
               </div>
+
               <div class="col-6 col-sm-6 col-md-3">
                 <ul class="list-unstyled">
-                  <li><a href="#">Chaise nordique</a></li>
+                  <li><a href="#">Nordic Chair</a></li>
                   <li><a href="#">Kruzo Aero</a></li>
-                  <li><a href="#">Chaise ergonomique</a></li>
+                  <li><a href="#">Ergonomic Chair</a></li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
+
         <div class="border-top copyright">
           <div class="row pt-4">
             <div class="col-lg-6">
@@ -455,24 +480,26 @@
                 <script>
                   document.write(new Date().getFullYear());
                 </script>
-                . Tous droits réservés. &mdash; Conçu avec amour par ShopAll.
+                . Tous droits réservés.
               </p>
             </div>
+
             <div class="col-lg-6 text-center text-lg-end">
               <ul class="list-unstyled d-inline-flex ms-auto">
-                <li class="me-4"><a href="#">Conditions générales</a></li>
-                <li><a href="#">Politique de confidentialité</a></li>
+                <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
     </footer>
-    <!-- Fin de la section Pied de page -->
+    <!-- End Footer Section -->
 
-    <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="../js/tiny-slider.js"></script>
-    <script src="../js/custom.js"></script>
+    <script src="{{url_for('static' , filename = 'js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{url_for('static' , filename = 'js/tiny-slider.js')}}"></script>
+    <script src="{{url_for('static' , filename = 'js/custom.js')}}"></script>
+    
 
     <script>
       // Fonction pour charger le résumé de la commande
@@ -564,7 +591,7 @@
       // Écouteurs d'événements
       document.addEventListener("DOMContentLoaded", () => {
         loadOrderSummary();
-
+        const th="{{url_for('client_thankyou')}}";
         document
           .getElementById("place-order")
           .addEventListener("click", (e) => {
@@ -573,7 +600,7 @@
               saveOrder(); // Sauvegarder la commande
               localStorage.removeItem("cart");
               localStorage.removeItem("orderTotal");
-              window.location.href = "thankyou.html";
+              window.location.href = th;
             } else {
               alert("Veuillez remplir tous les champs obligatoires.");
             }

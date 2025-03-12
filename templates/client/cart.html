@@ -1,4 +1,4 @@
-{% extends "base.html"%}
+{% extends "client_base.html"%}
 {% block title %} ShopAll - Cart{% endblock %}
 {% block content %}
 <!-- Start Hero Section -->
@@ -107,11 +107,12 @@
             <div class="row">
               <div class="col-md-12">
                 <button
-                  class="btn btn-black btn-lg py-3 btn-block"
-                  onclick="window.location='checkout.html'"
-                >
-                  Procéder au paiement
-                </button>
+                class="btn btn-black btn-lg py-3 btn-block"
+                id="checkout-btn"
+                data-url="{{ url_for('client_checkout') }}"
+              >
+                Procéder au paiement
+              </button>
               </div>
             </div>
           </div>
@@ -121,6 +122,11 @@
   </div>
 </div>
 
-
+<script>
+   document.getElementById('checkout-btn').addEventListener('click', function () {
+    const url = this.getAttribute('data-url');
+    window.location.href = url;
+  });
+</script>
 {% endblock %}
 

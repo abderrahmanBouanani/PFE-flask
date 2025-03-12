@@ -10,6 +10,7 @@ def login():
 def signup():
     return render_template('auth/signup.html')
 
+#partie client
 @app.route('/client_home')
 def client_home():
     return render_template('client/index.html')  # Spécifiez le chemin relatif à partir du dossier templates
@@ -38,6 +39,14 @@ def client_profil():
 def client_cart():
     return render_template('client/cart.html')
 
+@app.route('/client_checkout')
+def client_checkout():
+    return render_template('client/checkout.html')
+
+@app.route('/client_thankyou')
+def client_thankyou():
+    return render_template('client/thankyou.html')
+
 #Partie Admin
 @app.route('/admin_dashboard')
 def admin_dashboard():
@@ -59,6 +68,30 @@ def admin_produit():
 def admin_utilisateur():
     return render_template('admin/Utilisateur.html')
 
+#partie vendeur
+@app.route('/vendeur_home')
+def vendeur_home():
+    return render_template('vendeur/vendeurHome.html')
+
+@app.route('/vendeur_boutique')
+def vendeur_boutique():
+    return render_template('vendeur/vendeurBoutique.html')
+
+@app.route('/vendeur_about')
+def vendeur_about():
+    return render_template('vendeur/vendeurApropos.html')
+
+@app.route('/vendeur_service')
+def vendeur_service():
+    return render_template('vendeur/vendeurService.html')
+
+@app.route('/vendeur_contact')
+def vendeur_contact():
+    return render_template('vendeur/vendeurContact.html')
+
+@app.route('/vendeur_profil')
+def vendeur_profil():
+    return render_template('vendeur/vendeurProfile.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

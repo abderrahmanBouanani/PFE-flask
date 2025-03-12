@@ -1,5 +1,5 @@
-{% extends "client_base.html"%}
-{% block title %} ShopAll - Contact{% endblock %}
+{% extends "vendeur_base.html" %}
+{% block title %}ShopAll - Contact {% endblock %}
 {% block content %}
 <!-- Début de la section Héros -->
 <div class="hero">
@@ -9,7 +9,7 @@
 		  <div class="intro-excerpt">
 			<h1>Contact</h1>
 			<p class="mb-4">Nous sommes là pour vous aider ! N'hésitez pas à nous contacter pour toute question ou demande concernant nos produits et services.</p>
-			<p><a href="{{url_for('client_boutique')}}" class="btn btn-secondary me-2">Acheter maintenant</a><a href="#" class="btn btn-white-outline">Explorer</a></p>
+			<p><a href="{{url_for('vendeur_boutique')}}" class="btn btn-secondary me-2">Acheter maintenant</a><a href="#" class="btn btn-white-outline">Explorer</a></p>
 		  </div>
 		</div>
 		<div class="col-lg-7">
@@ -115,5 +115,5 @@
 </div>
 
 <!-- Fin du formulaire de contact -->
-
 {% endblock %}
+

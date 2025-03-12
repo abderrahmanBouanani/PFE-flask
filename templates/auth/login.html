@@ -126,6 +126,7 @@
           );
           
           const clpage = "{{url_for('client_home')}}";
+          const vdpage = "{{url_for('vendeur_home')}}";
           if (user) {
             localStorage.setItem("connectedUser", JSON.stringify(user));
 
@@ -134,7 +135,7 @@
                 window.location.href = clpage;
                 break;
               case "Vendeur":
-                window.location.href = "vendeur-interface/vendeurHome.html";
+                window.location.href = vdpage;
                 break;
               case "Livreur":
                 window.location.href = "delivery interface/livraisons.html";
