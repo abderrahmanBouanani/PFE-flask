@@ -93,5 +93,14 @@ def vendeur_contact():
 def vendeur_profil():
     return render_template('vendeur/vendeurProfile.html')
 
+# Partie Livreur
+@app.route('/livraisons')
+def livraisons():
+    return render_template('delivery/livraisons.html')
+
+@app.route('/profil_livreur')
+def profil_livreur():
+    return render_template('delivery/profil-livreur.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
