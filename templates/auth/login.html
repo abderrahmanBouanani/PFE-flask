@@ -127,6 +127,7 @@
           
           const clpage = "{{url_for('client_home')}}";
           const vdpage = "{{url_for('vendeur_home')}}";
+          const lvpage = "{{url_for('livraisons')}}";
           if (user) {
             localStorage.setItem("connectedUser", JSON.stringify(user));
 
@@ -138,7 +139,7 @@
                 window.location.href = vdpage;
                 break;
               case "Livreur":
-                window.location.href = "delivery interface/livraisons.html";
+                window.location.href = lvpage;
                 break;
               default:
                 alert("Type d'utilisateur inconnu !");
