@@ -54,7 +54,7 @@
     <div class="container">
       <div class="login-container">
         <h2>Connexion</h2>
-        <form id="loginForm">
+        <form id="loginForm" method="post" action="{{ url_for('login') }}">
           <div class="form-group">
             <label for="email" class="form-label">Email</label>
             <input
@@ -72,7 +72,7 @@
               type="password"
               class="form-control"
               id="password"
-              name="password"
+              name="motdepasse"
               placeholder="Entrez votre mot de passe"
               required
             />
@@ -91,63 +91,6 @@
     <script src="{{url_for('static' , filename = 'js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{url_for('static' , filename = 'js/tiny-slider.js')}}"></script>
     <script src="{{url_for('static' , filename = 'js/custom.js')}}"></script>
-    <script>
-      document
-        .getElementById("loginForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
 
-          const emailInput = document.getElementById("email").value.trim();
-          const passwordInput = document
-            .getElementById("password")
-            .value.trim();
-
-          // Check for admin credentials first
-          const adpage = "{{url_for('admin_dashboard')}}";
-          if (
-            emailInput === "admin@gmail.com" &&
-            passwordInput === "admin123"
-          ) {
-            const adminUser = {
-              email: emailInput,
-              type_utilisateur: "administrateur",
-            };
-            localStorage.setItem("connectedUser", JSON.stringify(adminUser));
-            window.location.href = adpage;
-            return;
-          }
-
-          // If not admin, check local storage for other users
-          const users = JSON.parse(localStorage.getItem("users")) || [];
-
-          const user = users.find(
-            (user) =>
-              user.email === emailInput && user.motdepasse === passwordInput
-          );
-          
-          const clpage = "{{url_for('client_home')}}";
-          const vdpage = "{{url_for('vendeur_home')}}";
-          const lvpage = "{{url_for('livraisons')}}";
-          if (user) {
-            localStorage.setItem("connectedUser", JSON.stringify(user));
-
-            switch (user.type_utilisateur) {
-              case "client":
-                window.location.href = clpage;
-                break;
-              case "Vendeur":
-                window.location.href = vdpage;
-                break;
-              case "Livreur":
-                window.location.href = lvpage;
-                break;
-              default:
-                alert("Type d'utilisateur inconnu !");
-            }
-          } else {
-            alert("Email ou mot de passe incorrect !");
-          }
-        });
-    </script>
   </body>
 </html>
