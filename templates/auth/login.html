@@ -87,7 +87,11 @@
         </div>
       </div>
     </div>
-
+    {% if error %}
+      <script>
+        alert("Erreur : {{ error }}");  // Affichage de la pop-up avec le message d'erreur
+      </script>
+    {% endif %}
     <script src="{{url_for('static' , filename = 'js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{url_for('static' , filename = 'js/tiny-slider.js')}}"></script>
     <script src="{{url_for('static' , filename = 'js/custom.js')}}"></script>

@@ -48,7 +48,7 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
           <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
             <li><a class="nav-link" href="{{ url_for('vendeur_home') }}">Accueil</a></li>
-            <li><a class="nav-link" href="{{ url_for('vendeur_boutique') }}">Boutique</a></li>
+            <li><a class="nav-link" href="{{ url_for('vendeur_boutique') }}">Ma Boutique</a></li>
             <li><a class="nav-link" href="{{ url_for('vendeur_about') }}">À propos</a></li>
             <li><a class="nav-link" href="{{ url_for('vendeur_service') }}">Services</a></li>
             <li><a class="nav-link" href="{{ url_for('vendeur_contact') }}">Contact</a></li>
@@ -77,31 +77,14 @@
       <div class="user-info-card">
         <h2><b>Informations de votre compte </b></h2>
         <div id="userInfo">
-          <!-- Les informations de l'utilisateur seront affichées ici -->
+          <p><strong>Nom :</strong> {{ utilisateur.nom }}</p>
+            <p><strong>Prénom :</strong> {{ utilisateur.prenom }}</p>
+            <p><strong>Email :</strong> {{ utilisateur.email }}</p>
+            <p><strong>Téléphone :</strong> {{ utilisateur.telephone }}</p>
+            <p><strong>Type d'utilisateur :</strong> {{ utilisateur.type_utilisateur }}</p>
         </div>
       </div>
     </div>
 
-    <script>
-      // Récupérer les informations de l'utilisateur connecté depuis le localStorage
-      const connectedUser = JSON.parse(localStorage.getItem("connectedUser"));
-
-      if (connectedUser) {
-        // Afficher les informations de l'utilisateur
-        const userInfoContainer = document.getElementById("userInfo");
-        userInfoContainer.innerHTML = `
-            <p><strong>Nom :</strong> ${connectedUser.nom}</p>
-            <p><strong>Prénom :</strong> ${connectedUser.prenom}</p>
-            <p><strong>Email :</strong> ${connectedUser.email}</p>
-            <p><strong>Téléphone :</strong> ${connectedUser.telephone}</p>
-            <p><strong>Type d'utilisateur :</strong> ${connectedUser.type_utilisateur}</p>
-        `;
-      } else {
-        // Si aucun utilisateur connecté n'est trouvé
-        const userInfoContainer = document.getElementById("userInfo");
-        userInfoContainer.innerHTML =
-          "<p>Aucune information disponible. Veuillez vous connecter d'abord.</p>";
-      }
-    </script>
   </body>
 </html>

@@ -1,25 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_migrate import Migrate
-from database.Connexion import db, init_db
 from models.Utilisateur import Utilisateur  # Assure-toi que le modèle Utilisateur est bien défini
 from flask import jsonify, session
+from database.Connexion import get_connection
 
-# Initialisation de l'application Flask
 app = Flask(__name__, template_folder='templates')
 
-# Configuration de l'application Flask pour MySQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/shopall'  # Remplacez 'root' par votre nom d'utilisateur MySQL
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Optionnel, pour éviter un warning
-app.config['SECRET_KEY'] = 'ton_secret_key'  # Clé secrète pour les sessions et flash messages
-
-# Initialiser l'instance de SQLAlchemy
-db.init_app(app)
-
-# Initialisation de Flask-Migrate pour les migrations
-migrate = Migrate(app, db)
-
-# Configuration du secret key pour utiliser flash messages
-app.config['SECRET_KEY'] = 'ton_secret_key'  # Change cette clé par une vraie clé secrète pour la sécurité
+app.secret_key = 'startSession'  # Change ceci par une clé sécurisée
 
 
 # Route pour la page de signup (inscription)
@@ -31,25 +18,26 @@ def signup():
         prenom = request.form['prenom']
         email = request.form['email']
         telephone = request.form['telephone']
-        password = request.form['motdepasse']  # Assurez-vous d'utiliser 'password' ici
+        password = request.form['motdepasse']
         type_utilisateur = request.form['type_utilisateur']
 
-        # Créer un nouvel utilisateur avec le mot de passe
-        nouvel_utilisateur = Utilisateur(
+        # Vérifie si l'utilisateur existe déjà
+        if Utilisateur.get_by_email(email):
+            flash('Un compte avec cet email existe déjà.', 'danger')
+            return redirect(url_for('signup'))
+
+        # Créer l'utilisateur (insertion dans la base)
+        Utilisateur.create(
             nom=nom,
             prenom=prenom,
             email=email,
+            password=password,
             telephone=telephone,
-            password=password,  
             type_utilisateur=type_utilisateur
         )
 
-        # Ajouter l'utilisateur à la base de données
-        db.session.add(nouvel_utilisateur)
-        db.session.commit()
-
         flash('Utilisateur inscrit avec succès !', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('login'))  # ou autre page après inscription
 
     return render_template('auth/signup.html')
 
@@ -59,35 +47,45 @@ def signup():
 @app.route('/', methods=['GET', 'POST'], endpoint='login')
 def login():
     if request.method == 'POST':
-        email = request.form['email']
-        motdepasse = request.form['motdepasse']
+        email = request.form.get('email')
+        motdepasse = request.form.get('motdepasse')
 
-        # Recherche l'utilisateur par email
-        utilisateur = Utilisateur.query.filter_by(email=email).first()
-        print(utilisateur)
+        # Utilisation de la connexion déjà définie dans Connexion.py
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        query = "SELECT * FROM utilisateurs WHERE email = %s"
+        cursor.execute(query, (email,))
+        utilisateur = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        if email == "admin@gmail.com" and motdepasse == "admin123":
+                    return redirect(url_for('admin_dashboard'))  # Rediriger vers le tableau de bord de l'admin
+        
         if utilisateur:
-            # Comparaison des mots de passe (en clair)
-            if utilisateur.password == motdepasse:
-                # Authentifie l'utilisateur (enregistre son id dans la session)
-                session['user_id'] = utilisateur.id
-                session['type_utilisateur'] = utilisateur.type_utilisateur
+            if utilisateur['password'] == motdepasse:
+                session['user_id'] = utilisateur['id']
+                session['type_utilisateur'] = utilisateur['type_utilisateur']
 
-                # Renvoie la réponse JSON pour la redirection côté client
-                return jsonify({
-                    "success": True,
-                    "type_utilisateur": utilisateur.type_utilisateur,
-                })
-
+                if utilisateur['type_utilisateur'] == 'client':
+                    return redirect(url_for('client_home'))
+                elif utilisateur['type_utilisateur'] == 'vendeur':
+                    return redirect(url_for('vendeur_home'))
+                elif utilisateur['type_utilisateur'] == 'livreur':
+                    return redirect(url_for('livraisons'))
+                else:
+                    return redirect(url_for('login'))
             else:
-                # Si le mot de passe est incorrect
-                return jsonify({"success": False, "message": "Mot de passe incorrect."})
-
+                error_message = "Mot de passe incorrect."
+                return render_template('auth/login.html', error=error_message)
         else:
-            # Si l'email n'existe pas dans la base de données
-            return jsonify({"success": False, "message": "Email non trouvé."})
+            error_message = "Adresse email ou mot de passe est incorrect !"
+            return render_template('auth/login.html', error=error_message)
 
-    # Si la méthode est GET, rendre la page de login
     return render_template('auth/login.html')
+
 
 
 
@@ -115,7 +113,30 @@ def client_contact():
 
 @app.route('/client_profil')
 def client_profil():
-    return render_template('client/profilClient.html')
+    if 'user_id' in session:
+        # Récupérer l'ID de l'utilisateur connecté
+        user_id = session['user_id']
+        
+        # Connexion à la base de données
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)  # Utilisation de dictionnaires pour une récupération facile des résultats
+        
+        # Récupérer les informations de l'utilisateur depuis la base de données
+        cursor.execute("SELECT * FROM utilisateurs WHERE id = %s", (user_id,))
+        utilisateur = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        if utilisateur:
+            # Passer les données à la page de profil
+            return render_template('client/profilClient.html', utilisateur=utilisateur)
+        else:
+            # Si l'utilisateur n'existe pas, rediriger vers la page de connexion
+            return redirect(url_for('login'))
+    else:
+        # Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+        return redirect(url_for('login'))
 
 @app.route('/client_cart')
 def client_cart():
@@ -173,7 +194,31 @@ def vendeur_contact():
 
 @app.route('/vendeur_profil')
 def vendeur_profil():
-    return render_template('vendeur/vendeurProfile.html')
+    if 'user_id' in session:
+        # Récupérer l'ID de l'utilisateur connecté
+        user_id = session['user_id']
+        
+        # Connexion à la base de données
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)  # Utilisation de dictionnaires pour une récupération facile des résultats
+        
+        # Récupérer les informations de l'utilisateur depuis la base de données
+        cursor.execute("SELECT * FROM utilisateurs WHERE id = %s", (user_id,))
+        utilisateur = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        if utilisateur:
+            # Passer les données à la page de profil
+            return render_template('vendeur/vendeurProfile.html', utilisateur=utilisateur)
+        else:
+            # Si l'utilisateur n'existe pas, rediriger vers la page de connexion
+            return redirect(url_for('login'))
+    else:
+        # Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+        return redirect(url_for('login'))
+    
 
 # Partie Livreur
 @app.route('/livraisons')
@@ -182,7 +227,31 @@ def livraisons():
 
 @app.route('/profil_livreur')
 def profil_livreur():
-    return render_template('delivery/profil-livreur.html')
+    if 'user_id' in session:
+        # Récupérer l'ID de l'utilisateur connecté
+        user_id = session['user_id']
+        
+        # Connexion à la base de données
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)  # Utilisation de dictionnaires pour une récupération facile des résultats
+        
+        # Récupérer les informations de l'utilisateur depuis la base de données
+        cursor.execute("SELECT * FROM utilisateurs WHERE id = %s", (user_id,))
+        utilisateur = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        if utilisateur:
+            # Passer les données à la page de profil
+            return render_template('delivery/profil-livreur.html', utilisateur=utilisateur)
+        else:
+            # Si l'utilisateur n'existe pas, rediriger vers la page de connexion
+            return redirect(url_for('login'))
+    else:
+        # Si l'utilisateur n'est pas connecté, rediriger vers la page de connexion
+        return redirect(url_for('login'))
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
